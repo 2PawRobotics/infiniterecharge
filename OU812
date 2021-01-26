@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
   if (operator.getRawButton(9)) {
   liftlock.set(-1);
 } else if (operator.getRawButton(10)) {
-  liftlock.set(-1);
+  liftlock.set(1);
 } else {
   liftlock.set(0);
 }
