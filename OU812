@@ -42,8 +42,8 @@ public class Robot extends TimedRobot {
   private final Spark liftlock = new Spark(8);
 
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-
-
+  private double leftjoyy = 0.2;
+  private double rightjoyy = 0.2;
   public Robot()
   {
     System.out.println("Robot.constructor()");
@@ -65,8 +65,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() { //1 is 100% so .2 is 20%
-    tank.tankDrive(leftjoy.getY(), rightjoy.getY());
+    tank.tankDrive(leftjoyy, rightjoyy);
+    leftjoyy = leftjoy.getY();
+    rightjoyy = rightjoy.getY();
 
+
+
+    System.out.println("leftjoyy value is " + leftjoyy);
   if (operator.getRawButton(12)) {
     lift.set(-1);
     } else if (operator.getRawButton(11)) {
@@ -138,13 +143,7 @@ public class Robot extends TimedRobot {
     System.out.println("Robot.operatorControl()");
 
     tank.setSafetyEnabled(true);
-
-    while (isOperatorControl() && isEnabled())
-    {
-      tank.arcadeDrive(operator.getX(), operator.getY());
-
-      Timer.delay(0.020);
-    }
+    
   }
 
   public void disable()
